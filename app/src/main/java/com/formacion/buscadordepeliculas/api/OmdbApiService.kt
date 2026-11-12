@@ -5,13 +5,13 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface OmdbApiService {
-    @GET("/")
+    @GET(".")
     fun searchMovies(
         @Query("s") query: String,
         @Query("apikey") apiKey: String,
     ): Call<SearchResponse>
 
-    @GET("/")
+    @GET(".")
     fun getMovieDetail(
         @Query("i") imdbId: String,
         @Query("apikey") apiKey: String,

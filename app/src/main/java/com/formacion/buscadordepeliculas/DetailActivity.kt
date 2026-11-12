@@ -1,6 +1,7 @@
 package com.formacion.buscadordepeliculas
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -70,6 +71,7 @@ class DetailActivity : AppCompatActivity() {
                             Toast.makeText(this@DetailActivity, errorMsg, Toast.LENGTH_SHORT).show()
                         }
                     } else {
+                        Log.e("OmdbDetail", "HTTP error code: ${response.code()}, message: ${response.message()}")
                         Toast.makeText(this@DetailActivity, getString(R.string.err_server), Toast.LENGTH_SHORT).show()
                     }
                 }

@@ -2,6 +2,7 @@ package com.formacion.buscadordepeliculas
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_SHORT).show()
                         }
                     } else {
+                        Log.e("OmdbSearch", "HTTP error code: ${response.code()}, message: ${response.message()}")
                         movieAdapter.updateMovies(emptyList())
                         Toast.makeText(this@MainActivity, getString(R.string.err_server), Toast.LENGTH_SHORT).show()
                     }

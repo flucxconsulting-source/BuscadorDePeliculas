@@ -5,7 +5,11 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(localPropertiesFile.inputStream())
 }
-val omdbApiKey: String = localProperties.getProperty("OMDB_API_KEY") ?: ""
+var rawKey: String = localProperties.getProperty("OMDB_API_KEY") ?: ""
+if (rawKey.contains("apikey=")) {
+    rawKey = rawKey.substringAfter("apikey=").substringBefore("&")
+}
+val omdbApiKey: String = rawKey.trim()
 
 plugins {
     alias(libs.plugins.android.application)
