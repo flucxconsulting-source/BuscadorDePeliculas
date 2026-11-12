@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
     private fun performSearch() {
         val query = etSearchQuery.text.toString().trim()
         if (query.isEmpty()) {
-            Toast.makeText(this, "Por favor, introduce un título", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.err_empty_query), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -65,22 +65,23 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                     if (response.isSuccessful) {
                         val searchResponse = response.body()
-                        if (searchResponse != null && (searchResponse.response == "True") && (!searchResponse.search.isNullOrEmpty())) {
+                        if ((searchResponse != null) && (searchResponse.response == "True") && (!searchResponse.search.isNullOrEmpty())) {
                             movieAdapter.updateMovies(searchResponse.search)
                         } else {
                             movieAdapter.updateMovies(emptyList())
-                            val errorMsg = searchResponse?.error ?: "No se encontraron películas"
+                            val errorMsg = searchResponse?.error ?: getString(R.string.err_no_movies)
                             Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         movieAdapter.updateMovies(emptyList())
-                        Toast.makeText(this@MainActivity, "Error en la respuesta del servidor", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, getString(R.string.err_server), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                     movieAdapter.updateMovies(emptyList())
-                    Toast.makeText(this@MainActivity, "Error de conexión: ${t.message}", Toast.LENGTH_SHORT).show()
+                    val errorMsg = getString(R.string.err_connection, t.message ?: "")
+                    Toast.makeText(this@MainActivity, errorMsg, Toast.LENGTH_SHORT).show()
                 }
             },
         )

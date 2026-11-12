@@ -10,7 +10,7 @@
         android:id="@+id/ivPoster"
         android:layout_width="80dp"
         android:layout_height="120dp"
-        android:contentDescription="Póster de la película"
+        android:contentDescription="@string/poster_desc"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

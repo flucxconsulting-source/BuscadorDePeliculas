@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">BuscadorDePeliculas</string>
+    <string name="main_title">Buscador de películas</string>
+    <string name="hint_search">Introduce título</string>
+    <string name="btn_search">Buscar</string>
+    <string name="poster_desc">Póster de la película</string>
+    <string name="detail_year">Año: %1$s</string>
+    <string name="detail_genre">Género: %1$s</string>
+    <string name="detail_runtime">Duración: %1$s</string>
+    <string name="detail_director">Director: %1$s</string>
+    <string name="detail_country">País: %1$s</string>
+    <string name="detail_plot">Sinopsis: %1$s</string>
+    <string name="err_empty_query">Por favor, introduce un título</string>
+    <string name="err_no_movies">No se encontraron películas</string>
+    <string name="err_server">Error en la respuesta del servidor</string>
+    <string name="err_connection">Error de conexión: %1$s</string>
+    <string name="err_invalid_id">Identificador de película no válido</string>
+    <string name="err_no_detail">No se pudo obtener el detalle de la película</string>
+    <string name="not_available">N/A</string>
 </resources>

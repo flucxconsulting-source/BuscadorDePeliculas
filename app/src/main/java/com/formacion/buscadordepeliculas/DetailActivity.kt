@@ -48,7 +48,7 @@ class DetailActivity : AppCompatActivity() {
 
         val imdbId = intent.getStringExtra("imdbID")
         if (imdbId.isNullOrEmpty()) {
-            Toast.makeText(this, "Identificador de película no válido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.err_invalid_id), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -63,32 +63,34 @@ class DetailActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
                     if (response.isSuccessful) {
                         val movieDetail = response.body()
-                        if (movieDetail != null && (movieDetail.response == "True")) {
+                        if ((movieDetail != null) && (movieDetail.response == "True")) {
                             displayMovieDetail(movieDetail)
                         } else {
-                            val errorMsg = movieDetail?.error ?: "No se pudo obtener el detalle de la película"
+                            val errorMsg = movieDetail?.error ?: getString(R.string.err_no_detail)
                             Toast.makeText(this@DetailActivity, errorMsg, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(this@DetailActivity, "Error al obtener respuesta del servidor", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@DetailActivity, getString(R.string.err_server), Toast.LENGTH_SHORT).show()
                     }
                 }
 
                 override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
-                    Toast.makeText(this@DetailActivity, "Error de conexión: ${t.message}", Toast.LENGTH_SHORT).show()
+                    val errorMsg = getString(R.string.err_connection, t.message ?: "")
+                    Toast.makeText(this@DetailActivity, errorMsg, Toast.LENGTH_SHORT).show()
                 }
             },
         )
     }
 
     private fun displayMovieDetail(detail: MovieDetail) {
-        tvTitle.text = detail.title ?: "N/A"
-        tvYear.text = "Año: ${detail.year ?: "N/A"}"
-        tvGenre.text = "Género: ${detail.genre ?: "N/A"}"
-        tvRuntime.text = "Duración: ${detail.runtime ?: "N/A"}"
-        tvDirector.text = "Director: ${detail.director ?: "N/A"}"
-        tvCountry.text = "País: ${detail.country ?: "N/A"}"
-        tvPlot.text = "Sinopsis: ${detail.plot ?: "N/A"}"
+        val notAvailable = getString(R.string.not_available)
+        tvTitle.text = detail.title ?: notAvailable
+        tvYear.text = getString(R.string.detail_year, detail.year ?: notAvailable)
+        tvGenre.text = getString(R.string.detail_genre, detail.genre ?: notAvailable)
+        tvRuntime.text = getString(R.string.detail_runtime, detail.runtime ?: notAvailable)
+        tvDirector.text = getString(R.string.detail_director, detail.director ?: notAvailable)
+        tvCountry.text = getString(R.string.detail_country, detail.country ?: notAvailable)
+        tvPlot.text = getString(R.string.detail_plot, detail.plot ?: notAvailable)
 
         val posterUrl = detail.poster
         if (!posterUrl.isNullOrEmpty() && (posterUrl != "N/A")) {
