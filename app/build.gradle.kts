@@ -9,7 +9,7 @@ var rawKey: String = localProperties.getProperty("OMDB_API_KEY") ?: ""
 if (rawKey.contains("apikey=")) {
     rawKey = rawKey.substringAfter("apikey=").substringBefore("&")
 }
-val omdbApiKey: String = rawKey.trim()
+val omdbApiKey: String = rawKey.trim().ifEmpty { "dbec1d89" }
 
 plugins {
     alias(libs.plugins.android.application)
