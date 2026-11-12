@@ -1,0 +1,9 @@
+# Prompt 06 — Diagnosticar y corregir error HTTP de OMDb (mínimo)
+
+Trabaja sobre el código existente. No reescribas la aplicación ni agregues funcionalidades. La búsqueda muestra "Error en la respuesta del servidor". En MainActivity este mensaje aparece cuando response.isSuccessful es false, pero no se ve el código HTTP. La API Retrofit usa https://www.omdbapi.com/ y @GET("/") con parámetros s/apikey; DetailActivity usa i/apikey. La clave se carga de local.properties con OMDB_API_KEY y se inserta en BuildConfig.
+
+1. Antes de editar, comprueba localmente si OMDB_API_KEY está presente y no está vacía, SIN imprimir ni publicar su valor. Si falta, explica al alumno que debe escribir OMDB_API_KEY=su_clave en local.properties, sincronizar/recompilar e instalar de nuevo. No subas local.properties.
+2. Reproduce una búsqueda (por ejemplo Matrix) y anota el código HTTP de la respuesta. Añade temporalmente solo un Log.e con código HTTP y mensaje HTTP en el bloque !response.isSuccessful de MainActivity; NUNCA registres URL completa, parámetros ni API key. Si es posible revisa el cuerpo de error sin mostrar secretos. Comprueba si OMDb responde 401/403/429 u otro código. Si el servidor devuelve un error OMDb con HTTP 200, usa el campo Error ya existente.
+3. Revisa si @GET("/") está funcionando con la URL base; si es necesario, cambia ambos endpoints a @GET(".") para mantener la ruta base, sin cambiar la interfaz de usuario. No cambies algo sin evidencia.
+4. Corrige solo la causa confirmada. Mantén dos Activities, Kotlin/XML, Retrofit, RecyclerView, Intent Extras y Picasso. Nada de bibliotecas nuevas ni patrones avanzados.
+5. Comprueba búsqueda, clic y detalle en emulador o dispositivo, y compilación. Si no puedes ejecutar una prueba, indícalo. Haz commit y push únicamente de cambios sin secretos; deja la carpeta de prompts fuera del código de producción. Resume código HTTP observado, causa, corrección y resultado. Detente.
